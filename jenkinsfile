@@ -12,14 +12,14 @@ sh "${mvnHome}/bin/mvn clean package"
 }
 stage("Build image")
 {
-sh " docker build -t navyadevops/sprigboot:${buildnumber} ."
+sh " docker build -t navyadevops/springboot:${buildnumber} ."
 }
 stage("Push image")
 {
 withCredentials([string(credentialsId: 'Docker_hub_pwd', variable: 'dockerhubpwd')]) {
   sh "docker login -u navyadevops -p ${dockerhubpwd}"
 }
-sh " docker push navyadevops/sprigboot:${buildnumber}
+sh " docker push navyadevops/springboot:${buildnumber}"
 }
 stage("Deploying image")
 {
