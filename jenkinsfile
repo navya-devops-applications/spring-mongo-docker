@@ -28,3 +28,4 @@ sshagent(['ec2-user']) {
    sh "ssh -o StrictHostKeyChecking=no ec2-user@13.232.155.25 docker stack deploy --compose-file docker-compose.yaml springapp"
 }
 }
+}
