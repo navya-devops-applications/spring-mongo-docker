@@ -1,6 +1,7 @@
 node
 {
 def mvnHome = tool name : "maven 3.6.2"
+def buildnumber= BUILD_NUMBER
 stage("checkout code")
 {
 git credentialsId: '33b14771-b858-4cc9-aac8-40a58e2ee672', url: 'https://github.com/navya-devops-applications/spring-mongo-docker.git'
@@ -11,12 +12,19 @@ sh "${maven 3.6.2}/bin/mvn clean package"
 }
 stage("Build image")
 {
-sh " docker build -t navyadevops/javawebapp:2 ."
+sh " docker build -t navyadevops/sprigboot:${buildnumber} ."
 }
 stage("Push image")
 {
-withCredentials([string(credentialsId: 'Docker_hub_pwd', variable: 'Docker_hub_pwd')]) {
-  docker login -u navyadevops -p ${Docker_hub_pwd} 
+withCredentials([string(credentialsId: 'Docker_hub_pwd', variable: 'dockerhubpwd')]) {
+  sh "docker login -u navyadevops -p ${dockerhubpwd}"
 }
-sh " docker push navyadevops/javawebapp:2
-
+sh " docker push navyadevops/sprigboot:${buildnumber}
+}
+stage("Deploying image")
+{
+sshagent(['ec2-user']) {
+   sh "ssh -o StrictHostKeyChecking=no ec2-user@13.232.155.25 docker stack rm springapp || true"
+   sh "ssh -o StrictHostKeyChecking=no ec2-user@13.232.155.25 docker stack deploy --compose-file docker-compose.yaml springapp"
+}
+}
