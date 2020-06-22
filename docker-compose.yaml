@@ -1,0 +1,28 @@
+version: "3.1"
+services:
+  springapplication:
+    image: navyadevops/springapp:1
+    ports:
+    - 8081:8080
+    depends_on:
+      - mongo
+    deploy:
+      replicas: 3
+      placement:
+        constraints:
+        - node.labels.name==Appserver
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+    - volume:/data/db
+volumes:
+  volume:
+    external: true
+networks:
+  default:
+    external:
+      name: customoverlaynetwork
+
+  
+    
