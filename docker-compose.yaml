@@ -3,7 +3,7 @@ services:
   springapplication:
     image: navyadevops/springapp:1
     ports:
-    - 8081:8080
+    - 8082:8080
     depends_on:
       - mongo
     deploy:
