@@ -12,13 +12,13 @@ sh "${mavenHome}/bin/mvn clean package"
 }
 stage("Build Image")
 {
-sh "docker build -t navyadevops/springapp:${buildNumber} ."
+sh "docker build -t 172.31.37.97:9999/springapp:${buildNumber} ."
 }
 stage("Authenticating")
 {
-withCredentials([string(credentialsId: 'Docker_hub_pwd', variable: 'Docker_hub_pwd')]) {
- sh "docker login -u navyadevops -p ${Docker_hub_pwd}"   
-}
+withCredentials([string(credentialsId: 'docker_privaterepo', variable: 'Privaterepo')]) {
+ sh "docker login -u navyadevops -p ${Privaterepo} 172.31.37.97:9999" 
+}  
 }
 stage("Deploying into kubernetes cluster")
 {
