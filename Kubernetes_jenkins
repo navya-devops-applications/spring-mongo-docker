@@ -23,7 +23,7 @@ withCredentials([string(credentialsId: 'docker_privaterepo', variable: 'Privater
 stage("Deploying into kubernetes cluster")
 {
 withKubeConfig(credentialsId: 'KubeConfig') {
- sh" kubectl apply -f springBootMongo.yml"
+ sh" kubectl apply -f springBootMongo-PrivateRepo.yml"
 }
 }
 }
