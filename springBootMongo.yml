@@ -12,7 +12,7 @@ spec:
         name: springboot
     spec:
       containers:
-      - image: dockerhandson/spring-boot-mongo
+      - image: navyadevops/springapp:1
         name: springboot
         ports:
         - name: springboot
@@ -54,13 +54,7 @@ spec:
         - name: mongo
           containerPort: 27017
           hostPort: 27017
-        volumeMounts:
-        - name: mongo-persistent-storage
-          mountPath: /data/db
-      volumes:
-      - name: mongo-persistent-storage
-        hostPath:
-         path: /tmp/dbbackup
+       
 ---
 # Mongo Node Port RC
 apiVersion: v1
