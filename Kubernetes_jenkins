@@ -19,6 +19,7 @@ stage("Authenticating")
 withCredentials([string(credentialsId: 'docker_privaterepo', variable: 'Privaterepo')]) {
  sh "docker login -u admin -p ${Privaterepo} 172.31.37.97:9999" 
 }  
+sh " docker push 172.31.37.97:9999/springapp:${buildNumber} "
 }
 stage("Deploying into kubernetes cluster")
 {
