@@ -16,8 +16,8 @@ sh "docker build -t navyadevops/springapp:${buildNumber} ."
 }
 stage("Authenticating")
 {
-withCredentials([usernameColonPassword(credentialsId: 'Dockerhubpwd', variable: 'Dockerhubpwd')]) {
-   sh "docker login -u navyadevops -p ${Dockerhubpwd}"
+withCredentials([string(credentialsId: 'Docker_hub_pwd', variable: 'Docker_hub_pwd')]) {
+ sh "docker login -u navyadevops -p ${Docker_hub_pwd}"   
 }
 }
 stage("Deploying into kubernetes cluster")
