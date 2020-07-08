@@ -23,3 +23,6 @@ withCredentials([usernameColonPassword(credentialsId: 'Dockerhubpwd', variable: 
 }
 stage("Deploying into kubernetes cluster")
 {
+withKubeConfig(credentialsId: 'kubernetesConfig') {
+    sh" kubectl apply -f spring.yml"
+}
