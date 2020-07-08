@@ -22,8 +22,8 @@ withCredentials([string(credentialsId: 'Docker_hub_pwd', variable: 'Docker_hub_p
 }
 stage("Deploying into kubernetes cluster")
 {
-withKubeConfig(credentialsId: 'kubernetesConfig') {
-    sh" kubectl apply -f springBootMongo.yml"
+withKubeConfig(credentialsId: 'KubeConfig') {
+ sh" kubectl apply -f springBootMongo.yml"
 }
 }
 }
