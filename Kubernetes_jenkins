@@ -1,6 +1,6 @@
 node
 {
-def mavenHome= tool name="maven 3.6.2"
+def mavenHome= tool name: "maven 3.6.2"
 def buildNumber= BUILD_NUMBER
 stage("Code checkout")
 {
