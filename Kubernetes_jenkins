@@ -26,3 +26,4 @@ stage("Deploying into kubernetes cluster")
 withKubeConfig(credentialsId: 'kubernetesConfig') {
     sh" kubectl apply -f springBootMongo.yml"
 }
+}
